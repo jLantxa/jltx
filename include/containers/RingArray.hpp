@@ -25,10 +25,9 @@
 #ifndef _JLTX_INCLUDE_CONTAINERS_RING_ARRAY_HPP_
 #define _JLTX_INCLUDE_CONTAINERS_RING_ARRAY_HPP_
 
-#include <cstddef>
-
 #include <algorithm>
 #include <array>
+#include <cstddef>
 
 namespace jltx {
 
@@ -41,7 +40,7 @@ class RingArray {
     const std::size_t list_size = list.size();
     assert(size >= list_size);
 
-    const auto list_begin = list.begin();
+    const auto& list_begin = list.begin();
     for (std::size_t i = 0; i < list_size; ++i) {
       m_array[i] = *(list_begin + i);
     }
@@ -53,15 +52,17 @@ class RingArray {
 
   T& Back() {
     assert(m_fill_level > 0);
-
     return m_array[m_tail];
   }
 
+  const T& Back() const { return Back(); }
+
   T& Front() {
     assert(m_fill_level > 0);
-
     return m_array[m_head];
   }
+
+  const T& Front() const { return Front(); }
 
   T& operator[](std::size_t i) {
     assert(i < m_fill_level);
@@ -69,6 +70,8 @@ class RingArray {
     const std::size_t n = Index(m_head + i);
     return m_array[n];
   }
+
+  const T& operator[](std::size_t i) const { return *this[i]; }
 
   void Push(T element) {
     m_fill_level = std::min(size, m_fill_level + 1);

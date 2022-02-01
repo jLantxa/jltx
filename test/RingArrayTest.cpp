@@ -66,15 +66,13 @@ TEST(RingArrayTest, FillAndEmpty) {
   for (std::size_t i = 0; i < ring.Size(); ++i) {
     int element = ring.Pop();
     EXPECT_EQ(element, i);
-    EXPECT_EQ(ring.FillLevel(), 4 - (i+1));
+    EXPECT_EQ(ring.FillLevel(), 4 - (i + 1));
   }
   ASSERT_TRUE(ring.Empty());
 }
 
 TEST(RingArrayTest, InitializerList) {
-  jltx::RingArray<int, 4> ring = {
-    0, 1, 2
-  };
+  jltx::RingArray<int, 4> ring = {0, 1, 2};
 
   ASSERT_EQ(ring.FillLevel(), 3);
   for (std::size_t i = 0; i < ring.FillLevel(); ++i) {
