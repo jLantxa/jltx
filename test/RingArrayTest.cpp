@@ -92,3 +92,39 @@ TEST(RingArrayTest, Overwrite) {
     EXPECT_EQ(ring[i], i + 2);
   }
 }
+
+TEST(RingArrayTest, Iterator) {
+  jltx::RingArray<int, 4> ring = {0, 1, 2};
+
+  std::vector<int> vec(3);
+  for (auto& num : ring) {
+    vec.push_back(num);
+  }
+
+  for (int i = 0; i < 3; ++i) {
+    vec[i] = i;
+  }
+}
+
+TEST(RingArrayTest, IteratorEmpty) {
+  jltx::RingArray<int, 4> ring;
+
+  for (auto& num : ring) {
+    (void)num;
+    FAIL();
+  }
+}
+
+TEST(RingArrayTest, IteratorWrapAround) {
+  jltx::RingArray<int, 4> ring = {0, 1, 2, 3};
+  ring.Push(4);
+
+  std::vector<int> vec(3);
+  for (auto& num : ring) {
+    vec.push_back(num);
+  }
+
+  for (int i = 0; i < 4; ++i) {
+    vec[i] = i + 1;
+  }
+}

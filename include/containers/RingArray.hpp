@@ -28,12 +28,52 @@
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <iterator>
 
 namespace jltx {
 
 template <typename T, std::size_t size>
 class RingArray {
  public:
+  class Iterator {
+   public:
+    using iterator_category = std::forward_iterator_tag;
+    using value_type = T;
+    using pointer = T*;
+    using reference = T&;
+
+    Iterator(RingArray& ring, std::size_t index)
+        : m_ring(ring), m_index(index) {}
+
+    bool operator==(const Iterator& other) {
+      return (m_ring.m_array == other.m_ring.m_array) &&
+             (m_ring.m_head == other.m_ring.m_head) &&
+             (m_ring.m_tail == other.m_ring.m_tail) &&
+             (m_index == other.m_index);
+    }
+
+    bool operator!=(const Iterator& other) { return !(*this == other); }
+
+    Iterator& operator++() {
+      m_index++;
+      return *this;
+    }
+
+    Iterator operator++(int) {
+      Iterator tmp = *this;
+      ++(*this);
+      return tmp;
+    }
+
+    reference operator*() const { return m_ring[m_index]; }
+
+    pointer operator->() const { return &m_ring[m_index]; }
+
+   private:
+    RingArray& m_ring;
+    std::size_t m_index;
+  };
+
   RingArray() = default;
 
   RingArray(std::initializer_list<T> list) {
@@ -103,11 +143,17 @@ class RingArray {
   std::size_t m_head = 0;
   std::size_t m_tail = size - 1;
 
+  [[nodiscard]] Iterator begin() { return Iterator(*this, 0); }
+
+  [[nodiscard]] Iterator end() { return Iterator(*this, m_fill_level); }
+
  private:
   T m_array[size];
   std::size_t m_fill_level = 0;
 
   constexpr std::size_t Index(std::size_t i) const { return (i % size); }
+
+  friend class Iterator;
 };
 
 }  // namespace jltx
