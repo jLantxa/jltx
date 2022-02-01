@@ -1,13 +1,14 @@
 BUILD := build
 INCLUDE := include
 SRC := src
+TEST := test
 
 CXXFLAGS += \
 	-std=c++20 \
 	-Os \
 	-Wall -Werror
 
-all: sockets utils
+all: sockets utils run-tests
 
 clean:
 	rm -r $(BUILD)
@@ -29,3 +30,17 @@ utils:
 	$(CXX) $(CXXFLAGS) \
 		-I $(INCLUDE) -fpic $(UTILS_SOURCES) -shared \
 		-o $(BUILD)/jltx_$(UTILS_TARGET).so
+
+TESTS_SOURCES += \
+	$(SRC)/util/TextUtils.cpp \
+	$(TEST)/TextUtilsTest.cpp
+TESTS_TARGET := tests
+tests:
+	$(CXX) $(CXXFLAGS) \
+		-lgtest_main -lgtest \
+		-I $(INCLUDE) \
+		$(TESTS_SOURCES) \
+		-o $(BUILD)/jltx_$(TESTS_TARGET)
+
+run-tests: tests
+	./$(BUILD)/jltx_$(TESTS_TARGET)
