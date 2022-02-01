@@ -9,14 +9,18 @@ CXXFLAGS += \
 	-Os \
 	-Wall -Werror
 
-all: mkdir sockets utils doc run-tests
+
+all: mkdir sockets utils doc tests
+
 
 mkdir:
 	@mkdir -p $(BUILD)
 
+
 clean:
 	rm -r ./$(BUILD)
 	rm -r ./$(DOC)
+
 
 format:
 	clang-format --style=Google -i \
@@ -24,8 +28,10 @@ format:
 		$(INCLUDE)/*/*.hpp \
 		$(TEST)/*.cpp
 
+
 doc:
 	doxygen
+
 
 SOCKETS_SOURCES += \
 	$(SRC)/net/Socket.cpp
@@ -44,9 +50,11 @@ utils:
 		-I $(INCLUDE) -fpic $(UTILS_SOURCES) -shared \
 		-o $(BUILD)/jltx_$(UTILS_TARGET).so
 
+
 TESTS_SOURCES += \
 	$(SRC)/util/TextUtils.cpp \
-	$(TEST)/TextUtilsTest.cpp
+	$(TEST)/TextUtilsTest.cpp \
+	$(TEST)/RingArrayTest.cpp
 TESTS_TARGET := tests
 tests:
 	$(CXX) $(CXXFLAGS) \
@@ -54,6 +62,4 @@ tests:
 		-I $(INCLUDE) \
 		$(TESTS_SOURCES) \
 		-o $(BUILD)/jltx_$(TESTS_TARGET)
-
-run-tests: tests
 	./$(BUILD)/jltx_$(TESTS_TARGET)

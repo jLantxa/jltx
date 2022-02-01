@@ -1,0 +1,108 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2022 Javier Lancha Vázquez
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+#ifndef _JLTX_INCLUDE_CONTAINERS_RING_ARRAY_HPP_
+#define _JLTX_INCLUDE_CONTAINERS_RING_ARRAY_HPP_
+
+#include <cstddef>
+
+#include <algorithm>
+#include <array>
+
+namespace jltx {
+
+template <typename T, std::size_t size>
+class RingArray {
+ public:
+  RingArray() = default;
+
+  RingArray(std::initializer_list<T> list) {
+    const std::size_t list_size = list.size();
+    assert(size >= list_size);
+
+    const auto list_begin = list.begin();
+    for (std::size_t i = 0; i < list_size; ++i) {
+      m_array[i] = *(list_begin + i);
+    }
+
+    m_fill_level = list_size;
+    m_head = 0;
+    m_tail = list_size - 1;
+  }
+
+  T& Back() {
+    assert(m_fill_level > 0);
+
+    return m_array[m_tail];
+  }
+
+  T& Front() {
+    assert(m_fill_level > 0);
+
+    return m_array[m_head];
+  }
+
+  T& operator[](std::size_t i) {
+    assert(i < m_fill_level);
+
+    const std::size_t n = Index(m_head + i);
+    return m_array[n];
+  }
+
+  void Push(T element) {
+    m_fill_level = std::min(size, m_fill_level + 1);
+    m_tail = Index(m_tail + 1);
+    m_array[m_tail] = element;
+  }
+
+  T Pop() {
+    assert(m_fill_level > 0);
+
+    m_fill_level = std::max(0UL, m_fill_level - 1);
+    T head = m_array[m_head];
+    m_head = Index(m_head + 1);
+    return head;
+  }
+
+  constexpr std::size_t Size() const { return size; }
+
+  std::size_t FillLevel() const { return m_fill_level; }
+
+  bool Empty() const { return (m_fill_level == 0); }
+
+  bool Full() const { return (m_fill_level >= size); }
+
+  std::size_t m_head = 0;
+  std::size_t m_tail = size - 1;
+
+ private:
+  T m_array[size];
+  std::size_t m_fill_level = 0;
+
+  constexpr std::size_t Index(std::size_t i) const { return (i % size); }
+};
+
+}  // namespace jltx
+
+#endif  // _JLTX_INCLUDE_CONTAINERS_RING_ARRAY_HPP_
