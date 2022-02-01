@@ -61,7 +61,7 @@ Socket::Socket(Domain domain, Type type)
 ServerSocket::ServerSocket(Domain domain, Type type, uint16_t port)
 :   Socket(domain, type)
 {
-    ::jltx::debug::Log::d(LOG_TAG, "%s():", __func__);
+    ::jltx::debug::Log.d(LOG_TAG, "%s():", __func__);
 
     m_port = port;
     m_address.sin_family = m_domain;
@@ -74,7 +74,7 @@ ServerSocket::ServerSocket(Domain domain, Type type, uint16_t port)
             SocketException::Action::BIND,
             "Error binding server socket");
     }
-    ::jltx::debug::Log::i(LOG_TAG, "%s(): Created server socket", __func__);
+    ::jltx::debug::Log.i(LOG_TAG, "%s(): Created server socket", __func__);
 }
 
 void ServerSocket::Listen() {
@@ -99,7 +99,7 @@ Connection ServerSocket::Accept() {
 
         if (newSockfd >= 0) {
             Connection connection(newSockfd);
-            ::jltx::debug::Log::i(LOG_TAG, "%s(): Accepted new socket", __func__);
+            ::jltx::debug::Log.i(LOG_TAG, "%s(): Accepted new socket", __func__);
             return connection;
         }
     } while(numTries < MAX_RETRIES);
@@ -113,14 +113,14 @@ Connection ServerSocket::Accept() {
 ClientSocket::ClientSocket(Domain domain, Type type, std::string address, uint16_t port)
 :   Socket(domain, type)
 {
-    ::jltx::debug::Log::d(LOG_TAG, "%s():", __func__);
+    ::jltx::debug::Log.d(LOG_TAG, "%s():", __func__);
 
     m_port = port;
     m_address.sin_family = m_domain;
     inet_pton(AF_INET, address.c_str(), &m_address.sin_addr);
     m_address.sin_port = htons(m_port);
 
-    ::jltx::debug::Log::i(LOG_TAG, "%s(): Created client socket", __func__);
+    ::jltx::debug::Log.i(LOG_TAG, "%s(): Created client socket", __func__);
 }
 
 void ClientSocket::Connect() {
