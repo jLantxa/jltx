@@ -74,9 +74,13 @@ class RingArray {
   const T& operator[](std::size_t i) const { return *this[i]; }
 
   void Push(T element) {
-    m_fill_level = std::min(size, m_fill_level + 1);
     m_tail = Index(m_tail + 1);
     m_array[m_tail] = element;
+
+    if (Full()) {
+      m_head = Index(m_head + 1);
+    }
+    m_fill_level = std::min(size, m_fill_level + 1);
   }
 
   T Pop() {

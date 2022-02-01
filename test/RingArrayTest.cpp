@@ -79,3 +79,16 @@ TEST(RingArrayTest, InitializerList) {
     EXPECT_EQ(ring[i], i);
   }
 }
+
+TEST(RingArrayTest, Overwrite) {
+  jltx::RingArray<int, 4> ring = {0, 1, 2, 3};
+  ASSERT_EQ(ring.FillLevel(), 4);
+  ASSERT_TRUE(ring.Full());
+
+  ring.Push(4);
+  ring.Push(5);
+  EXPECT_TRUE(ring.Full());
+  for (std::size_t i = 0; i < ring.FillLevel(); ++i) {
+    EXPECT_EQ(ring[i], i + 2);
+  }
+}
