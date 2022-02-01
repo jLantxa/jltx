@@ -22,8 +22,8 @@
  * SOFTWARE.
 */
 
-#ifndef _JLTX_INCLUDE_TEXT_UTILS_HPP_
-#define _JLTX_INCLUDE_TEXT_UTILS_HPP_
+#ifndef _JLTX_INCLUDE_UTIL_TEXT_UTILS_HPP_
+#define _JLTX_INCLUDE_UTIL_TEXT_UTILS_HPP_
 
 #include <string>
 #include <vector>
@@ -57,4 +57,4 @@ std::vector<std::string> Split(const std::string& str,
 }  // namespace TextUtils
 }  // namespace jltx
 
-#endif  // _JLTX_INCLUDE_TEXT_UTILS_HPP_
+#endif  // _JLTX_INCLUDE_UTIL_TEXT_UTILS_HPP_
