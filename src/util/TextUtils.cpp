@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #include "util/TextUtils.hpp"
 
@@ -31,7 +31,7 @@ namespace TextUtils {
  * \return true if str1 and str2 are equal, false otherwise.
  */
 bool Equals(const std::string& str1, const std::string& str2) {
-    return (str1.compare(str2) == 0);
+  return (str1.compare(str2) == 0);
 }
 
 /**
@@ -40,35 +40,36 @@ bool Equals(const std::string& str1, const std::string& str2) {
  * \param delimiter Delimiter
  * \return A vector with the split substrings.
  */
-std::vector<std::string> Split(const std::string& str, const std::string& delimiter) {
-    std::vector<std::string> str_vec;
-    const std::size_t str_size = str.size();
-    const std::size_t sep_size = delimiter.size();
+std::vector<std::string> Split(const std::string& str,
+                               const std::string& delimiter) {
+  std::vector<std::string> str_vec;
+  const std::size_t str_size = str.size();
+  const std::size_t sep_size = delimiter.size();
 
-    if (str_size > 0 && sep_size > 0) {
-        std::size_t pos = 0;
-        std::size_t found;
-        while (pos < str_size) {
-            found = str.find(delimiter, pos);
-            if (found == std::string::npos) {
-                // Not found -> add remaining substring
-                str_vec.push_back(str.substr(pos));
-                break;
-            } else {
-                // Found -> add substring
-                str_vec.push_back(str.substr(pos, found - pos));
-                pos = found + sep_size;
-            }
-        }
-
-        // Add an empty string if the last character is a separator
-        if (Equals(str.substr(str_size - sep_size), delimiter)) {
-            str_vec.push_back("");
-        }
+  if (str_size > 0 && sep_size > 0) {
+    std::size_t pos = 0;
+    std::size_t found;
+    while (pos < str_size) {
+      found = str.find(delimiter, pos);
+      if (found == std::string::npos) {
+        // Not found -> add remaining substring
+        str_vec.push_back(str.substr(pos));
+        break;
+      } else {
+        // Found -> add substring
+        str_vec.push_back(str.substr(pos, found - pos));
+        pos = found + sep_size;
+      }
     }
 
-    return str_vec;
+    // Add an empty string if the last character is a separator
+    if (Equals(str.substr(str_size - sep_size), delimiter)) {
+      str_vec.push_back("");
+    }
+  }
+
+  return str_vec;
 }
 
-}   // namespace TextUtils
-}   // namespace jltx
+}  // namespace TextUtils
+}  // namespace jltx

@@ -11,8 +11,13 @@ CXXFLAGS += \
 all: sockets utils run-tests
 
 clean:
-	rm -r $(BUILD)
+	rm -r ./$(BUILD)
 
+format:
+	clang-format --style=Google -i \
+		$(SRC)/*/*.cpp \
+		$(INCLUDE)/*/*.hpp \
+		$(TEST)/*.cpp
 
 SOCKETS_SOURCES += \
 	$(SRC)/net/Socket.cpp

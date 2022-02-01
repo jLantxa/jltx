@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #ifndef _JLTX_INCLUDE_TEXT_UTILS_HPP_
 #define _JLTX_INCLUDE_TEXT_UTILS_HPP_
@@ -31,7 +31,7 @@ namespace TextUtils {
  * \param str1 First string
  * \param str2 Second string
  * \return true if the contents of both strings are the same
-*/
+ */
 bool Equals(const std::string& str1, const std::string& str2);
 
 /** \brief Split a string into substrings using another string as a delimiter.
@@ -43,10 +43,11 @@ bool Equals(const std::string& str1, const std::string& str2);
  * \param str String
  * \param str Delimiter string
  * \return std::vector containing the substrings
-*/
-std::vector<std::string> Split(const std::string& str, const std::string& delimiter);
+ */
+std::vector<std::string> Split(const std::string& str,
+                               const std::string& delimiter);
 
-}   // namespace TextUtils
-}   // namespace jltx
+}  // namespace TextUtils
+}  // namespace jltx
 
 #endif  // _JLTX_INCLUDE_TEXT_UTILS_HPP_

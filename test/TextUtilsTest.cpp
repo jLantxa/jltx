@@ -3,8 +3,8 @@
 #include "util/TextUtils.hpp"
 
 TEST(TextUtilsTest, Equals) {
-  const std::string str_a {"any string"};
-  const std::string str_b {"other string"};
+  const std::string str_a{"any string"};
+  const std::string str_b{"other string"};
 
   EXPECT_TRUE(jltx::TextUtils::Equals("any string", "any string"));
   EXPECT_TRUE(jltx::TextUtils::Equals("any string", str_a));
@@ -13,9 +13,8 @@ TEST(TextUtilsTest, Equals) {
   EXPECT_FALSE(jltx::TextUtils::Equals("whatever", str_b));
 }
 
-
 TEST(TextUtilsTest, Split) {
-  const std::string str {"first;second;third"};
+  const std::string str{"first;second;third"};
   const std::vector<std::string> substrings = jltx::TextUtils::Split(str, ";");
 
   EXPECT_EQ(substrings.size(), 3);
