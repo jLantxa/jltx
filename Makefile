@@ -2,22 +2,30 @@ BUILD := build
 INCLUDE := include
 SRC := src
 TEST := test
+DOC := doc
 
 CXXFLAGS += \
 	-std=c++20 \
 	-Os \
 	-Wall -Werror
 
-all: sockets utils run-tests
+all: mkdir sockets utils doc run-tests
+
+mkdir:
+	@mkdir -p $(BUILD)
 
 clean:
 	rm -r ./$(BUILD)
+	rm -r ./$(DOC)
 
 format:
 	clang-format --style=Google -i \
 		$(SRC)/*/*.cpp \
 		$(INCLUDE)/*/*.hpp \
 		$(TEST)/*.cpp
+
+doc:
+	doxygen
 
 SOCKETS_SOURCES += \
 	$(SRC)/net/Socket.cpp
