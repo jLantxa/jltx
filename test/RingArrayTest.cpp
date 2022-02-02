@@ -128,3 +128,22 @@ TEST(RingArrayTest, IteratorWrapAround) {
     vec[i] = i + 1;
   }
 }
+
+TEST(RingArrayTest, Structs) {
+  struct _Object {
+    int a;
+    int b;
+
+    bool operator==(const _Object& other) const {
+      return ((a == other.a) && (b == other.b));
+    }
+  };
+
+  jltx::RingArray<_Object, 4> ring = {{11, 12}, {21, 22}, {31, 32}, {41, 42}};
+
+  ASSERT_TRUE(ring.Full());
+  EXPECT_EQ(ring[0], (_Object{11, 12}));
+  EXPECT_EQ(ring.Pop(), (_Object{11, 12}));
+  EXPECT_EQ(ring[0], (_Object{21, 22}));
+  EXPECT_EQ(ring.FillLevel(), 3);
+}
