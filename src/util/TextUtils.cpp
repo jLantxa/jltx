@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Javier Lancha Vázquez
+ * Copyright (c) 2020-2022 Javier Lancha Vázquez
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,7 @@
 
 #include "util/TextUtils.hpp"
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -76,6 +77,29 @@ std::vector<std::string> Split(const std::string& str,
   }
 
   return str_vec;
+}
+
+static void ltrim(std::string& str) {
+  str.erase(str.begin(),
+            std::find_if(str.begin(), str.end(),
+                         [](unsigned char ch) { return !std::isspace(ch); }));
+}
+
+static void rtrim(std::string& str) {
+  str.erase(std::find_if(str.rbegin(), str.rend(),
+                         [](unsigned char ch) { return !std::isspace(ch); })
+                .base(),
+            str.end());
+}
+
+void Trim(std::string& str) {
+  ltrim(str);
+  rtrim(str);
+}
+
+[[nodiscard]] std::string TrimCopy(std::string str) {
+  Trim(str);
+  return str;
 }
 
 }  // namespace TextUtils

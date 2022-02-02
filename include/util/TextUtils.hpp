@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Javier Lancha Vázquez
+ * Copyright (c) 2020-2022 Javier Lancha Vázquez
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,16 @@ bool Equals(const std::string& str1, const std::string& str2);
  */
 std::vector<std::string> Split(const std::string& str,
                                const std::string& delimiter);
+
+/**
+ * @brief Remove trailing whitespaces in place
+ */
+void Trim(std::string& str);
+
+/**
+ * @brief Return a new string with all trailing whitespaces removed
+ */
+[[nodiscard]] std::string TrimCopy(std::string str);
 
 }  // namespace TextUtils
 }  // namespace jltx

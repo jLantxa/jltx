@@ -46,3 +46,16 @@ TEST(TextUtilsTest, Split) {
   EXPECT_EQ(substrings[1], "second");
   EXPECT_EQ(substrings[2], "third");
 }
+
+TEST(TextUtilsTest, TrimInPlace) {
+  std::string str = "  two spaces left, three spaces right   ";
+  jltx::TextUtils::Trim(str);
+  ASSERT_EQ(str, "two spaces left, three spaces right");
+}
+
+TEST(TextUtilsTest, TrimCopy) {
+  std::string str = "  two spaces left, three spaces right   ";
+  std::string trimmed_str = jltx::TextUtils::TrimCopy(str);
+  ASSERT_EQ(str, "  two spaces left, three spaces right   ");
+  ASSERT_EQ(trimmed_str, "two spaces left, three spaces right");
+}
