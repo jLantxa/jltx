@@ -24,6 +24,9 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <array>
+
 #include "containers/RingArray.hpp"
 
 TEST(RingArrayTest, FillAndEmpty) {
@@ -119,13 +122,13 @@ TEST(RingArrayTest, IteratorWrapAround) {
   jltx::RingArray<int, 4> ring = {0, 1, 2, 3};
   ring.Push(4);
 
-  std::vector<int> vec(3);
+  std::vector<int> vec;
   for (auto& num : ring) {
     vec.push_back(num);
   }
 
   for (int i = 0; i < 4; ++i) {
-    vec[i] = i + 1;
+    EXPECT_EQ(vec[i], (i + 1));
   }
 }
 
