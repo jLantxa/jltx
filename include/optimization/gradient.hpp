@@ -36,14 +36,6 @@
 namespace jltx {
 namespace opt {
 
-#include <array>
-#include <cmath>
-#include <cstdint>
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <vector>
-
 template <typename T, uint32_t nparams>
 struct OptimizationProblem {
   virtual std::vector<T> Estimate(const std::vector<T>& x,
