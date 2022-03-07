@@ -54,7 +54,8 @@ utils:
 TESTS_SOURCES += \
 	$(SRC)/util/TextUtils.cpp \
 	$(TEST)/TextUtilsTest.cpp \
-	$(TEST)/RingArrayTest.cpp
+	$(TEST)/RingArrayTest.cpp \
+	$(TEST)/MathTest.cpp
 TESTS_TARGET := tests
 tests:
 	$(CXX) $(CXXFLAGS) \
