@@ -32,6 +32,11 @@
 namespace jltx {
 namespace dsp {
 
+/**
+ * @brief Numerically-Controlled Oscilator
+ *
+ * @tparam bit_depth Bit depth of the LUT
+ */
 template <uint8_t bit_depth>
 class SineLUT {
  public:

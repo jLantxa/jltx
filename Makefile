@@ -6,7 +6,7 @@ EXAMPLES := examples
 DOC := doc
 
 CXXFLAGS += \
-	-std=c++17 \
+	-std=c++20 \
 	-Wall -Werror \
 	-O2 \
 	-Wconversion

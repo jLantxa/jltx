@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 
   jltx::dsp::SineLUT<BIT_DEPTH> lut;
   jltx::dsp::NCO<BIT_DEPTH> sin_nco(static_cast<float>(freq),
-                            static_cast<float>(sample_rate), lut);
+                                    static_cast<float>(sample_rate), lut);
 
   jltx::audio::AlsaAudioSink audio_sink(sample_rate);
 

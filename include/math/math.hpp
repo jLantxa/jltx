@@ -27,6 +27,12 @@
 namespace jltx {
 namespace math {
 
+/**
+ * @brief Wrap radians to a [-PI, PI] scale
+ *
+ * @tparam T Number type
+ * @param x Radians
+ */
 template <typename T>
 T wrap_radians(T x) {
   if (x > 0) {
@@ -36,11 +42,22 @@ T wrap_radians(T x) {
   }
 }
 
+/**
+ * @brief Wrap degrees to a [0, 360) scale
+ *
+ * @tparam T Number type
+ * @param x Degrees
+ */
 template <typename T>
-T wrap_degrees(T x) {
-  return fmod(x, 360);
+T wrap_degrees(T deg) {
+  return fmod(deg, 360);
 }
 
+/**
+ * @brief Sine function via an 11th degree Taylor series
+ *
+ * @tparam T Type
+ */
 template <typename T>
 T sin11(T x) {
   x = wrap_radians<T>(x);
@@ -60,6 +77,11 @@ T sin11(T x) {
   return (x - (x3 / f3) + (x5 / f5) - (x7 / f7) + (x9 / f9) - (x11 / f11));
 }
 
+/**
+ * @brief Cosine function via an 11th degree Taylor series of the sine function
+ *
+ * @tparam T Type
+ */
 template <typename T>
 T cos11(T x) {
   return sin11(x + static_cast<T>(M_PI) / static_cast<T>(2));
