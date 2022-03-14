@@ -33,7 +33,7 @@ format:
 
 
 doc:
-	doxygen
+	@doxygen
 
 
 SOCKETS_SOURCES += \
