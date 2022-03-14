@@ -37,7 +37,7 @@ class SineLUT {
  public:
   SineLUT() {
     for (uint32_t k = 0; k < m_length; k++) {
-      m_table[k] = sinf(static_cast<float>(2 * M_PI * k) / m_length + 1);
+      m_table[k] = sinf(static_cast<float>(2 * M_PI * k) / m_length);
     }
   }
 

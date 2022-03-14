@@ -29,6 +29,7 @@
 #include "audio/AlsaAudioSink.hpp"
 #include "dsp/NCO.hpp"
 
+static constexpr uint8_t BIT_DEPTH = 10;
 static constexpr uint32_t BUFFER_SIZE = 256;
 
 int main(int argc, char* argv[]) {
@@ -36,8 +37,8 @@ int main(int argc, char* argv[]) {
   const uint32_t sample_rate = atoi(argv[2]);
   const float length = static_cast<float>(atof(argv[3]));
 
-  jltx::dsp::SineLUT<8> lut;
-  jltx::dsp::NCO<8> sin_nco(static_cast<float>(freq),
+  jltx::dsp::SineLUT<BIT_DEPTH> lut;
+  jltx::dsp::NCO<BIT_DEPTH> sin_nco(static_cast<float>(freq),
                             static_cast<float>(sample_rate), lut);
 
   jltx::audio::AlsaAudioSink audio_sink(sample_rate);
