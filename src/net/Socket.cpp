@@ -65,7 +65,7 @@ ServerSocket::ServerSocket(Domain domain, Type type, uint16_t port)
   ::jltx::debug::Log.d(LOG_TAG, "%s():", __func__);
 
   m_port = port;
-  m_address.sin_family = m_domain;
+  m_address.sin_family = static_cast<sa_family_t>(m_domain);
   m_address.sin_addr.s_addr = INADDR_ANY;
   m_address.sin_port = htons(m_port);
 
@@ -113,7 +113,7 @@ ClientSocket::ClientSocket(Domain domain, Type type, std::string address,
   ::jltx::debug::Log.d(LOG_TAG, "%s():", __func__);
 
   m_port = port;
-  m_address.sin_family = m_domain;
+  m_address.sin_family = static_cast<sa_family_t>(m_domain);
   inet_pton(AF_INET, address.c_str(), &m_address.sin_addr);
   m_address.sin_port = htons(m_port);
 

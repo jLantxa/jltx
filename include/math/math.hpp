@@ -30,9 +30,9 @@ namespace math {
 template <typename T>
 T wrap_radians(T x) {
   if (x > 0) {
-    return fmod(x + M_PI, 2 * M_PI) - M_PI;
+    return static_cast<T>(fmod(x + M_PI, 2 * M_PI)) - static_cast<T>(M_PI);
   } else {
-    return fmod(x - M_PI, 2 * M_PI) + M_PI;
+    return static_cast<T>(fmod(x - M_PI, 2 * M_PI)) + static_cast<T>(M_PI);
   }
 }
 
@@ -62,7 +62,7 @@ T sin11(T x) {
 
 template <typename T>
 T cos11(T x) {
-  return sin11(x + M_PI / 2);
+  return sin11(x + static_cast<T>(M_PI) / static_cast<T>(2));
 }
 
 }  // namespace math

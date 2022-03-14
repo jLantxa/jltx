@@ -44,8 +44,8 @@ TEST(MathTest, sin11) {
     x += step;
   }
 
-  const float mean =
-      std::accumulate(errors.begin(), errors.end(), 0.0f) / errors.size();
+  const float mean = std::accumulate(errors.begin(), errors.end(), 0.0f) /
+                     static_cast<float>(errors.size());
   const float max = *std::max_element(errors.begin(), errors.end());
   ASSERT_LE(max, 5e-4);   // Max error is bound to 5e-4
   ASSERT_LE(mean, 5e-5);  // Mean error is bound to 5e-5
@@ -65,8 +65,8 @@ TEST(MathTest, cos11) {
     x += step;
   }
 
-  const float mean =
-      std::accumulate(errors.begin(), errors.end(), 0.0f) / errors.size();
+  const float mean = std::accumulate(errors.begin(), errors.end(), 0.0f) /
+                     static_cast<float>(errors.size());
   const float max = *std::max_element(errors.begin(), errors.end());
   ASSERT_LE(max, 5e-4);   // Max error is bound to 5e-4
   ASSERT_LE(mean, 5e-5);  // Mean error is bound to 5e-5
