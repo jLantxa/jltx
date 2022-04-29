@@ -12,17 +12,14 @@ CXXFLAGS += \
 	-Wconversion
 
 
-all: mkdir sockets utils nco_tonegen doc tests
-
+all: mkdir utils nco_tonegen doc tests
 
 mkdir:
 	@mkdir -p $(BUILD)
 
-
 clean:
 	rm -r ./$(BUILD)
 	rm -r ./$(DOC)
-
 
 format:
 	clang-format --style=Google -i \
@@ -31,18 +28,8 @@ format:
 		$(TEST)/*.cpp \
 		$(EXAMPLES)/*.cpp
 
-
 doc:
 	@doxygen
-
-
-SOCKETS_SOURCES += \
-	$(SRC)/net/Socket.cpp
-SOCKETS_TARGET := jltx
-sockets:
-	$(CXX) $(CXXFLAGS) \
-		-I $(INCLUDE) -fpic $(SOCKETS_SOURCES) -shared \
-		-o $(BUILD)/$(SOCKETS_TARGET)
 
 
 UTILS_SOURCES += \
