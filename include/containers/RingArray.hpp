@@ -27,6 +27,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <cstddef>
 #include <iterator>
 
@@ -126,7 +127,7 @@ class RingArray {
   T Pop() {
     assert(m_fill_level > 0);
 
-    m_fill_level = std::max(0UL, m_fill_level - 1);
+    m_fill_level = m_fill_level - 1;
     T head = m_array[m_head];
     m_head = Index(m_head + 1);
     return head;
